@@ -1,0 +1,13 @@
+{
+    "providers": [
+		{ "type": "bitmap", "file": "minecraft:gui/negative_space.png", "height": -3, "ascent": -9999, "chars": [ "󼰀" ] },
+        { "type": "bitmap", "file": "minecraft:gui/negative_space.png", "height": -50, "ascent": -9999, "chars": [ "󼰁" ] },
+        { "type": "bitmap", "file": "minecraft:gui/negative_space.png", "height": -259, "ascent": -9999, "chars": [ "󼰂" ] },
+        { "type": "bitmap", "file": "minecraft:gui/negative_space.png", "height": -211, "ascent": -9999, "chars": [ "󼰃" ] },
+		
+		{ "type": "bitmap", "file": "minecraft:misc/backdrop.png", "height": 1024, "ascent": 512, "chars": [ "󼱦" ] },
+		
+        { "type": "bitmap", "file": "minecraft:gui/pause_screen.png", "height": 256, "ascent": 83, "chars": [ "󼰐󼰑" ] },
+        { "type": "bitmap", "file": "minecraft:gui/pause_screen_title.png", "height": 256, "ascent": 49, "chars": [ "󼰒󼰓" ] }
+    ]
+}
