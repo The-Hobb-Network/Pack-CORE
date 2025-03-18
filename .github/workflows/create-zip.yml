@@ -42,7 +42,7 @@ jobs:
           name: THN_CORE
 
       - name: Get Current Date
-        run: echo "RELEASE_TAG=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+        run: echo "RELEASE_TAG=DOWNLOAD" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
