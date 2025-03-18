@@ -1,0 +1,26 @@
+name: Create Zip without Folder
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Create zip file
+      run: |
+        zip -r repo.zip . -x ".git/*" -x ".github/*"
+
+    - name: Upload release asset
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./repo.zip
+        asset_name: repo.zip
+        asset_content_type: application/zip
