@@ -1,28 +1,53 @@
-name: Create Zip without Folder
+name: Create Zip and Release on Push
 
 on:
   push:
     branches:
-      - main
-  release:
-    types: [created]
+      - main  # Runs when the main branch is updated
 
 jobs:
-  build:
+  create-zip:
+    name: Create and Upload Zip
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Create zip file
-      run: |
-        zip -r repo.zip . -x ".git/*" -x ".github/*"
+      - name: Create ZIP (without extra folder)
+        run: |
+          zip -r THN_CORE.zip . -x ".git/*" ".github/*" ".gitignore" "README.md"  # Exclude unnecessary files
 
-    - name: Upload release asset
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./repo.zip
-        asset_name: repo.zip
-        asset_content_type: application/zip
+      - name: Upload ZIP as an Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: THN_CORE
+          path: THN_CORE.zip
+          retention-days: 7  # Keeps the zip file for 7 days
+
+  release:
+    name: Create GitHub Release
+    needs: create-zip
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to create a release
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download the Zip Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: THN_CORE
+
+      - name: Get Current Date
+        run: echo "RELEASE_TAG=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}  # Tag based on timestamp
+          release_name: "Auto Release - ${{ env.RELEASE_TAG }}"
+          body: "This is an automatic release for the latest main branch update."
+          files: THN_CORE.zip
