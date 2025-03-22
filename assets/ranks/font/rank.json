@@ -11,7 +11,7 @@
 {"ascent":7,"chars":[">"],"file":"ranks:font/tag-e.png","height":8,"type":"bitmap"},
 
 {"advances": {"-": -2}, "type":"space"},
-{"advances": {"_": 1}, "type":"space"},
+{"advances": {"_": 2}, "type":"space"},
 {"advances": {"?": 5}, "type":"space"},
 {"advances": {"|": 10}, "type":"space"},
 {"advances": {"=": 20}, "type":"space"},
